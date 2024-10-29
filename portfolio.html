@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #000; /* Black background */
+            color: #ffffff; /* White text color */
+            scroll-behavior: smooth;
+            line-height: 1.6;
+        }
+
+        header {
+            background: rgba(30, 30, 30, 0.9); /* Dark header */
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); /* Soft glow */
+            animation: slideDown 0.5s ease forwards; /* Slide down animation */
+        }
+
+        .header-title {
+            font-size: 3.5em;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* Subtle glow */
+        }
+
+        .intro {
+            margin-top: 20px;
+            font-size: 1.3em;
+            opacity: 0;
+            animation: fadeIn 1s 0.5s forwards; /* Fade-in animation */
+        }
+
+        nav {
+            margin-top: 20px;
+        }
+
+        nav a {
+            color: #ffffff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        nav a:hover {
+            transform: scale(1.1); /* Scale effect on hover */
+            color: #00b4d8; /* Change color on hover */
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Subtle glow */
+        }
+
+        section {
+            padding: 40px;
+            margin: 20px auto;
+            max-width: 800px;
+            background: rgba(50, 50, 50, 0.8); /* Darker section background */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Soft shadow */
+            position: relative;
+            opacity: 0; /* Start hidden for animation */
+            transform: translateY(30px); /* Start slightly lower */
+            transition: opacity 0.8s, transform 0.8s; /* Smooth transition */
+        }
+
+        section.visible {
+            opacity: 1; /* Fully visible */
+            transform: translateY(0); /* Move to original position */
+        }
+
+        .profile-image {
+            max-width: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            animation: bounceIn 1s forwards;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Soft glow */
+        }
+
+        h2 {
+            color: #ffffff; /* White for headings */
+            margin-bottom: 10px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Subtle glow */
+        }
+
+        .project-card {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(70, 70, 70, 0.8); /* Darker project card */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Soft glow */
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px) rotate(2deg); /* Slight lift and rotate on hover */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); /* Bright shadow on hover */
+        }
+
+        .project-card img {
+            width: 100px;
+            height: auto;
+            border-radius: 8px;
+            margin-right: 20px;
+            transition: transform 0.3s;
+        }
+
+        .project-card img:hover {
+            transform: scale(1.05); /* Image scale effect */
+        }
+
+        .contact-form {
+            background: rgba(50, 50, 50, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Soft glow */
+            transition: transform 0.3s;
+        }
+
+        .contact-form:hover {
+            transform: scale(1.02); /* Slight scale on hover */
+        }
+
+        .contact-form label {
+            font-weight: bold;
+            color: #ffffff; /* White for labels */
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #444; /* Darker border */
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.1); /* Semi-transparent input fields */
+            color: #ffffff; /* White text in input fields */
+            transition: background-color 0.3s, border 0.3s;
+        }
+
+        .contact-form input:hover,
+        .contact-form textarea:hover {
+            background: rgba(255, 255, 255, 0.2); /* Lighten background on hover */
+            border: 1px solid #00b4d8; /* Highlight border on hover */
+        }
+
+        .contact-form button {
+            padding: 10px 20px;
+            background-color: #333; /* Button color */
+            color: #ffffff; /* White text for button */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.1); /* Soft glow */
+        }
+
+        .contact-form button:hover {
+            background-color: #444; /* Darker on hover */
+            transform: scale(1.05); /* Scale effect */
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* Bright glow on hover */
+        }
+
+        footer {
+            background: rgba(30, 30, 30, 0.9);
+            color: #e0e0e0;
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer a {
+            color: #ffffff; /* White links */
+            text-decoration: none;
+            transition: text-shadow 0.3s;
+        }
+
+        footer a:hover {
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Glowing effect on hover */
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateX(-40px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounceIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-title">S. SHAMLI</div>
+        <p class="intro">Welcome! I am a web developer with a passion for creating beautiful and functional websites.</p>
+        <nav>
+            <a href="#about">About Me</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#resume">Resume</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    
+    <section id="about">
+        <h2>About Me</h2>
+        <img src="pen.jpg" alt="My Image" class="profile-image">
+        <p>I am a dedicated developer with experience in HTML, CSS, and JavaScript. I love coding and am always eager to learn new technologies. As a front-end developer, I have a strong portfolio showcasing my skills and creativity.</p>
+    </section>
+
+    <section id="skills">
+        <h2>Skills</h2>
+        <ul>
+            <li>HTML & CSS</li>
+            <li>JavaScript</li>
+            <li>Responsive Design</li>
+            <li>C</li>
+            <li>Python</li>
+        </ul>
+    </section>
+
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="project-card">
+            <img src="image.jpg" alt="Project 1">
+            <div>
+                <h3>Diet Tracker Application</h3>
+                <p>Developed a diet tracker application with nutrition charts and online appointment booking.</p>
+            </div>
+        </div>
+        <div class="project-card">
+            <img src="image.jpg" alt="Project 1">
+            <div>
+                <h3>Diet Tracker Application</h3>
+                <p>Developed a diet tracker application with nutrition charts and online appointment booking.</p>
+            </div>
+        </div>
+        <div class="project-card">
+            <img src="image.jpg" alt="Project 1">
+            <div>
+                <h3>Diet Tracker Application</h3>
+                <p>Developed a diet tracker application with nutrition charts and online appointment booking.</p>
+            </div>
+        </div>
+        <div class="project-card">
+            <img src="image.jpg" alt="Project 1">
+            <div>
+                <h3>Diet Tracker Application</h3>
+                <p>Developed a diet tracker application with nutrition charts and online appointment booking.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="resume">
+        <h2>Resume</h2>
+        <p><a href="sh.jpg" target="_blank">Download My Resume</a></p>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2>Contact</h2>
+        <div class="contact-form">
+            <h3>Get In Touch</h3>
+            <form>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+                
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 My Portfolio. All rights reserved.</p>
+        <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </footer>
+
+    <script>
+        const sections = document.querySelectorAll("section");
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
